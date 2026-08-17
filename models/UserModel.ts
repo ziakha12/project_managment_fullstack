@@ -1,18 +1,4 @@
-
-// username
-// email
-// password
-// roles[]
-// tasks[fetched by userId]
-// projects[fecthed by userId]
-// permissions[]
-// avatar
-// project completed
-// refresh Token
-// Attendance
-
 import mongoose, { Schema, Document } from "mongoose";
-
 
 export interface userInterface extends Document {
 
@@ -28,7 +14,6 @@ export interface userInterface extends Document {
     Attendance: any
 
 }
-
 
 const userSchema = new Schema<userInterface>({
     username: {
@@ -84,7 +69,5 @@ const userSchema = new Schema<userInterface>({
     }],
     
 }, { timestamps: true })
-
-
 
 export const User = mongoose.models.users || mongoose.model<userInterface>("User", userSchema)
