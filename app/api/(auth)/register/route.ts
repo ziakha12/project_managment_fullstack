@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import dbConnect  from "@/utils/dbConnect";
 import { uploadOnCloudinary } from "@/utils/cloudinary";
-import { error } from "console";
 
 export async function POST(request: NextRequest) {
     try {
