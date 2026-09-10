@@ -44,7 +44,8 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({
             success : true,
-            message : "User register Successfully"
+            message : "User register Successfully",
+            user : user
         },{ status : 201})
     }
 

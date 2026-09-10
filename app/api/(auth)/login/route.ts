@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 import { User } from "@/models/UserModel";
 import JWT from "jsonwebtoken";
@@ -14,7 +13,7 @@ export async function POST(request : NextRequest) {
 
         const {username, email, password} = await request.json()
 
-        if([username, email, password].some(e => e?.trim() === " ")) return NextResponse.json({error : "all fields are required"}, {status : 201})
+        if([username, email, password].some(e => e?.trim() === " ")) return NextResponse.json({error : "all fields are required"}, {status : 401})
          
         const userExist = await User.findOne({$or : [{email}, {username}]})
 
@@ -24,14 +23,12 @@ export async function POST(request : NextRequest) {
 
         if(!isPasswordVerify) return NextResponse.json({error : "password is invalid"}, {status : 403})
     
-        const user = await User.findById(userExist._id).select('-password -refreshToken')
-
         const userData = {
             id : userExist._id,
             email : userExist.email,
         }
 
-        const token =  JWT.sign(userData, process.env.JWT_SECRET_TOKEN!, {expiresIn : '1h'})
+        const token =  JWT.sign(userData, process.env.JWT_SECRET_TOKEN!, {expiresIn : '5d'})
 
         const response =  NextResponse.json({
             message :  `${username || email} logged in successfully`,
