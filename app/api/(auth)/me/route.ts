@@ -1,6 +1,6 @@
 import { User } from "@/models/UserModel";
 import { NextRequest, NextResponse } from "next/server";
-import dbConnect from "@/utils/dbConnect";
+import dbConnect from "@/config/dbConnect";
 import { getUserIdFromToken } from "@/helpers/getDataFromToken";
 
 export async function GET(request: NextRequest) {

@@ -1,13 +1,13 @@
 import { User } from "@/models/UserModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import dbConnect  from "@/utils/dbConnect";
-import { uploadOnCloudinary } from "@/utils/cloudinary";
+import dbConnect  from "@/config/dbConnect";
+import { uploadOnCloudinary } from "@/config/cloudinary";
 
 export async function POST(request: NextRequest) {
     try {
-
         await dbConnect();
+
         const formData = await request.formData()
         
         const username = formData.get("username") as string
@@ -24,8 +24,6 @@ export async function POST(request: NextRequest) {
         
         if(existedUser) return NextResponse.json({error : "user with same name or email already exist"},{status : 402})
         
-        if(!image) return NextResponse.json({error : "image is required"}, {status :  401})
-
         const hashPassword =  await bcrypt.hash(password, 12)
 
         if(!hashPassword) return NextResponse.json({error : "something went wrong while encypting password"}, {status : 401})
@@ -50,6 +48,7 @@ export async function POST(request: NextRequest) {
     }
 
     catch(error){
-        return NextResponse.json({error : error || "something went wrong while creating user"}, {status : 500})
+        // @ts-ignore
+        return NextResponse.json({error : error.message || "something went wrong while creating user"}, {status : 500})
     }
 }

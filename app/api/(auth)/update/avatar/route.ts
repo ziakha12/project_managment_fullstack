@@ -1,8 +1,8 @@
 import { User } from "@/models/UserModel";
 import { NextRequest, NextResponse } from "next/server";
-import dbConnect from "@/utils/dbConnect";
+import dbConnect from "@/config/dbConnect";
 import { getUserIdFromToken } from "@/helpers/getDataFromToken";
-import { uploadOnCloudinary } from "@/utils/cloudinary";
+import { uploadOnCloudinary } from "@/config/cloudinary";
 
 export async function PUT(request: NextRequest) {
     try {

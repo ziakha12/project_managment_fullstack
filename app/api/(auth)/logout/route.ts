@@ -1,13 +1,12 @@
 import { User } from "@/models/UserModel";
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
-import dbConnect from "@/utils/dbConnect";
+import dbConnect from "@/config/dbConnect";
 import { getUserIdFromToken } from "@/helpers/getDataFromToken";
 
 export async function POST(request: NextRequest) {
     try {
         await dbConnect()
-        const formData = await request.formData()
 
         const userId = await getUserIdFromToken(request)
 

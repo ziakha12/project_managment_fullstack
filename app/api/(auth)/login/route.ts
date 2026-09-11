@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { User } from "@/models/UserModel";
 import JWT from "jsonwebtoken";
-import dbConnect from "@/utils/dbConnect";
+import dbConnect from "@/config/dbConnect";
 import bcrypt from "bcryptjs";
 
 
@@ -13,7 +13,7 @@ export async function POST(request : NextRequest) {
 
         const {username, email, password} = await request.json()
 
-        if([username, email, password].some(e => e?.trim() === " ")) return NextResponse.json({error : "all fields are required"}, {status : 401})
+        if(!email || !password) return NextResponse.json({error : "all fields are required"}, {status : 401})
          
         const userExist = await User.findOne({$or : [{email}, {username}]})
 

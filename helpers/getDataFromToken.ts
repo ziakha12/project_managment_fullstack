@@ -5,9 +5,9 @@ import { NextRequest } from 'next/server'
 
 export async function getUserIdFromToken(request : NextRequest){
     try {
-        const token:string | any = await request.cookies.get('token')?.value;
+        const token = await request.cookies.get('token')?.value;
         console.log(token)
-        const decodedToken:any = Jwt.verify(token, process.env.JWT_SECRET_TOKEN!)
+        const decodedToken:any = Jwt.verify(token!, process.env.JWT_SECRET_TOKEN!)
 
         console.log('token', decodedToken.id)
         return decodedToken.id;
