@@ -17,7 +17,7 @@ export async function POST(request : NextRequest) {
          
         const userExist = await User.findOne({$or : [{email}, {username}]})
 
-        if(!userExist) return NextResponse.json({error : "user not found"}, {status : 404})
+        if(!userExist) return NextResponse.json({error : "user not found"},{status : 404})
                 
         const isPasswordVerify = await bcrypt.compare(password, userExist.password)
 
