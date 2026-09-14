@@ -1,36 +1,169 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TaskFlow — Multi-Tenant Project Management & Mini-HR SaaS
 
-## Getting Started
+> AI-powered project management platform with built-in HR essentials, built for agencies and teams that manage client work.
 
-First, run the development server:
+Replace `TaskFlow` above with your actual product name, and update the badges/links below once you have a repo, demo, and license set up.
+
+<!--
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-green)](https://mongoosejs.com/)
+-->
+
+---
+
+## ✨ What is this?
+
+A **multi-tenant SaaS** where any user can create their own **organization** (workspace). Inside an organization, admins can set up **departments**, add **employees**, and run **projects and tasks** — with subtasks, client comments, and file attachments.
+
+The standout feature: an **AI layer that reads every task's comments and attachments** to automatically detect things that usually get missed manually —
+
+- 🔁 A client sent a **revision** but it's still being counted as regular progress on the current task
+- ❌ A task/project got **cancelled** — and whose fault it actually was (client vs internal team)
+- ⚠️ Early signs of **miscommunication or scope issues** before they escalate
+
+Alongside that, a lightweight **Mini-HR module** handles employee records, attendance, and payroll — so teams don't need a separate HR tool for day-to-day basics.
+
+---
+
+## 🧩 Core Features
+
+### Project Management
+- Multi-tenant organizations — each user creates and owns their own workspace
+- Departments/collections to group teams and projects
+- Projects with client info, members, deadlines, and status tracking
+- Tasks with **subtasks** (nested hierarchy), priorities, and due dates
+- Comments & attachments per task, with client vs internal authorship
+
+### 🤖 AI Task Insights (Core Differentiator)
+- Reads task comments + attachments automatically on new activity
+- Detects **revision requests** and separates them from normal progress
+- Detects **cancellations** and analyzes root cause / responsible party
+- Generates a plain-language summary manager can review and act on
+- **Human-in-the-loop**: AI suggests, a manager/admin approves before status changes
+
+### Mini-HR
+- Employee profiles (designation, department, employment type)
+- Attendance tracking (check-in/out, leave, half-day)
+- Monthly payroll with base salary, bonuses, and deductions
+
+---
+
+## 🏗️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | Next.js (React) |
+| Backend | Node.js / Express (or Next.js API routes) |
+| Database | MongoDB + Mongoose |
+| AI | LLM API (e.g. Claude/OpenAI) for comment/attachment analysis |
+| Auth | JWT-based, organization-scoped |
+| File Storage | Cloud storage (S3 or equivalent) for attachments |
+
+*(Update this table to match your actual stack choices.)*
+
+---
+
+## 📐 Architecture Overview
+
+```
+Organization (tenant)
+ ├── User (auth) ──1:1── Employee (HR profile)
+ │                          ├── Attendance
+ │                          └── Payroll
+ ├── Department
+ ├── Project
+ │     └── Task (supports nested subtasks)
+ │           ├── Comment (client / internal)
+ │           ├── Attachment
+ │           └── AI Insight (revision / cancellation / issue analysis)
+```
+
+Every collection is scoped by `organization`, and all queries are filtered through tenant-isolation middleware to keep data strictly separated between workspaces.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+
+- MongoDB (local or Atlas)
+- An API key for your chosen AI provider
+
+### Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env
+```
+
+### Environment Variables
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+AI_API_KEY=your_ai_provider_key
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+### Run locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App will be available at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure
 
-## Learn More
+```
+/models          → Mongoose schemas (Organization, User, Employee, Task, etc.)
+/controllers      → Business logic per entity
+/routes           → API routes (organization-scoped)
+/middleware
+   ├── auth.js         → JWT verification
+   └── tenantScope.js  → Multi-tenant data isolation
+/services
+   ├── ai/              → AI comment/attachment analysis
+   └── queue/           → Background jobs for AI processing
+/pages or /app     → Next.js frontend
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🗺️ Roadmap
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [ ] Role-based permission matrix
+- [ ] Notification system for AI-detected issues
+- [ ] Subtask progress roll-up on parent tasks
+- [ ] Client-facing portal for comments/approvals
+- [ ] Billing/subscription integration
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🤝 Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Contributions, issues, and feature requests are welcome. Feel free to check the [issues page](https://github.com/your-username/your-repo/issues) if you want to contribute.
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+## 📬 Contact
+
+Your Name — [@your-twitter](https://twitter.com/your-handle) — your.email@example.com
+
+Project Link: [https://github.com/your-username/your-repo](https://github.com/your-username/your-repo)
