@@ -40,6 +40,7 @@ const organizationSchema = new Schema<organiztaionInterface>(
         owner : {
             type : mongoose.Schema.Types.ObjectId,
             ref : "User", 
+            required : true
         },
         organizationStatus : {
             type : String,
