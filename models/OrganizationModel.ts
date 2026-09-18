@@ -1,20 +1,14 @@
 import mongoose, {Schema, Document} from "mongoose";
 import { userInterface } from "./UserModel";
+import { planInterface } from "./PlanModel";
 
 export interface organiztaionInterface extends Document {
     name : string,
     owner : userInterface | string,
     slug : string,
     logo : string,
+    plan : string | planInterface,
     organizationStatus : "active" | "inactive" | "suspended",
-    plan : {
-        type : string,
-        seatsAllowed : number,
-        seatsUsed : number,
-        planStatus : "active" | "inactive" | "suspended",
-        trailEndDate : Date,
-        isActive : boolean
-    },
     setting : {
         timezone : string,
         currency : string,
@@ -49,30 +43,9 @@ const organizationSchema = new Schema<organiztaionInterface>(
             enum : ["active", "inactive", "suspended"]
         },
         plan : {
-            type : {
-                type : String,
-                enum : ["free", "pro", "enterprise"]
-            },
-            seatsAllowed : {
-                type : Number,
-                default : 3
-            },
-            seatsUsed : {
-                type : Number,
-                default : 0
-            },
-            planStatus : {
-                type : String,
-                enum : ["active", "inactive", "suspended"],
-                default : "active"
-            },
-            trailEndDate : {
-                type : Date
-            },
-            isActive : {
-                type : Boolean,
-                default : true
-            }
+            type : Schema.Types.ObjectId,
+            ref : "Plan",
+            default : 'free'
         },
         setting : {
             timezone : {
