@@ -1,5 +1,4 @@
 import mongoose,{Document, Schema} from "mongoose";
-import { number } from "motion";
 
 
 export interface planInterface extends Document {
@@ -28,3 +27,5 @@ const planSchema = new Schema<planInterface>({
         required : true
     }
 },{timestamps : true})
+
+export const Plan = mongoose.models.plans || mongoose.model<planInterface>("Plan", planSchema)
