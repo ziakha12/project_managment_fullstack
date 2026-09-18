@@ -1,9 +1,6 @@
 import { Organization } from "@/models/OrganizationModel";
-import { getUserIdFromToken } from "@/helpers/getDataFromToken";
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/config/dbConnect";
-import { User, userInterface } from "@/models/UserModel";
-
 
 export async function PUT(
     request : NextRequest,
@@ -12,7 +9,7 @@ export async function PUT(
     try {
         await dbConnect()
         const id = (await params).id;
-        const {name, slug, timezone, currency, workingDays, aiFeatureEnabled, organizationStatus} = await request.json();
+        const {name, slug, timezone, currency, workingDays, aiFeatureEnabled, organizationStatus } = await request.json();
 
         if (!id) return NextResponse.json({error : 'id is required'}, {status : 401})
 
@@ -22,10 +19,12 @@ export async function PUT(
                 $set : {
                     name,
                     slug : slug?.trim().toLocaleLowerCase(),
-                    timezone,
-                    currency,
-                    workingDays,
-                    aiFeatureEnabled,
+                    setting : {
+                        timezone,
+                        currency,
+                        workingDays,
+                        aiFeatureEnabled,
+                    },
                     organizationStatus
                 }
             },
