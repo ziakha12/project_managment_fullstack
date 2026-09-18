@@ -89,4 +89,3 @@ const organizationSchema = new Schema<organiztaionInterface>(
 )
 
 export const Organization = mongoose.models.organizations || mongoose.model<organiztaionInterface>('Organization', organizationSchema)
-
