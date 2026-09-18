@@ -1,73 +1,90 @@
-import mongoose, {Schema, Document} from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 import { userInterface } from "./UserModel";
 import { planInterface } from "./PlanModel";
 
 export interface organiztaionInterface extends Document {
-    name : string,
-    owner : userInterface | string,
-    slug : string,
-    logo : string,
-    plan : string | planInterface,
-    organizationStatus : "active" | "inactive" | "suspended",
-    setting : {
-        timezone : string,
-        currency : string,
-        aiFeatureEnabled : boolean,
-        workingDays : string[],
+    name: string,
+    owner: userInterface | string,
+    slug: string,
+    logo: string,
+    billing: {
+        plan: string | planInterface,
+        seatsUsed: number,
+        planStatus: string,
+        isPlanActive : boolean
+    }
+    organizationStatus: "active" | "inactive" | "suspended",
+    setting: {
+        timezone: string,
+        currency: string,
+        aiFeatureEnabled: boolean,
+        workingDays: string[],
     }
 }
 
 const organizationSchema = new Schema<organiztaionInterface>(
     {
-        name : {
-            type : String,
-            required : true,
-            
+        name: {
+            type: String,
+            required: true,
         },
-        slug : {
-            type : String,
-            required : true, 
+        slug: {
+            type: String,
+            required: true,
         },
-        logo : {
-            type : String,
+        logo: {
+            type: String,
         },
-        owner : {
-            type : mongoose.Schema.Types.ObjectId,
-            ref : "User", 
-            required : true
+        owner: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true
         },
-        organizationStatus : {
-            type : String,
-            required : true,
-            deafault : "active",
-            enum : ["active", "inactive", "suspended"]
+        organizationStatus: {
+            type: String,
+            required: true,
+            deafault: "active",
+            enum: ["active", "inactive", "suspended"]
         },
-        plan : {
-            type : Schema.Types.ObjectId,
-            ref : "Plan",
-            default : 'free'
-        },
-        setting : {
-            timezone : {
-                type : String,
-                default : "UTC"
+        billing : {
+            plan: {
+                type: Schema.Types.ObjectId,
+                ref: "Plan",
+                default: 'free'
             },
-            currency : {
-                type : String,
-                default : "USD"
+            seatsUsed : {
+                type : Number,
             },
-            aiFeatureEnabled : {
+            isPlanActive : {
                 type : Boolean,
-                default : false
+                default : true
             },
-            workingDays : {
-                type : [String],
-                default : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+            planStatus : {
+                type : String,
+                default : 'active',
+            },
+        },
+        setting: {
+            timezone: {
+                type: String,
+                default: "UTC"
+            },
+            currency: {
+                type: String,
+                default: "USD"
+            },
+            aiFeatureEnabled: {
+                type: Boolean,
+                default: false
+            },
+            workingDays: {
+                type: [String],
+                default: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
             }
         }
     },
     {
-        timestamps : true
+        timestamps: true
     }
 )
 
