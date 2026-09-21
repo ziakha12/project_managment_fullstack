@@ -1,8 +1,8 @@
-# TaskFlow — Multi-Tenant Project Management & Mini-HR SaaS
+# Kamoora — Multi-Tenant AI Project Management & Mini-HR SaaS
 
 > AI-powered project management platform with built-in HR essentials, built for agencies and teams that manage client work.
 
-Replace `TaskFlow` above with your actual product name, and update the badges/links below once you have a repo, demo, and license set up.
+Replace `Kamoora` above with your actual product name, and update the badges/links below once you have a repo, demo, and license set up.
 
 <!--
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -140,19 +140,10 @@ App will be available at `http://localhost:3000`.
 
 ---
 
-## 🗺️ Roadmap
-
-- [ ] Role-based permission matrix
-- [ ] Notification system for AI-detected issues
-- [ ] Subtask progress roll-up on parent tasks
-- [ ] Client-facing portal for comments/approvals
-- [ ] Billing/subscription integration
-
----
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome. Feel free to check the [issues page](https://github.com/your-username/your-repo/issues) if you want to contribute.
+Contributions, issues, and feature requests are welcome. Feel free to check the [issues page](https://github.com/ziakha12/project_managment_fullstack/issues) if you want to contribute.
 
 ---
 
@@ -164,6 +155,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📬 Contact
 
-Your Name — [@your-twitter](https://twitter.com/your-handle) — your.email@example.com
-
-Project Link: [https://github.com/your-username/your-repo](https://github.com/your-username/your-repo)
+Zia Kahlid — [@your-linkedIn](https://www.linkedin.com/in/zia-khalid-b561ba281) — kzzia06@gmail.com

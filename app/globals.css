@@ -4,6 +4,45 @@
 
 @custom-variant dark (&:is(.dark *));
 
+:root {
+  /* Primary */
+  --color-white: #ffffff;
+  --color-primary: #3d3cb0;
+  --color-dark: #001233;
+
+  /* Secondary */
+  --color-green: #31b67a;
+  --color-orange: #ff7251;
+
+  /* Neutral */
+  --color-gray: #bfbfbf;
+
+  /* Gradient */
+  --gradient-primary: linear-gradient(
+    135deg,
+    #8b3dff 0%,
+    #5338d6 100%
+  );
+}
+
+@theme inline {
+  --color-white: var(--color-white);
+  --color-primary: var(--color-primary);
+  --color-dark: var(--color-dark);
+
+  --color-green: var(--color-green);
+  --color-orange: var(--color-orange);
+  --color-gray: var(--color-gray);
+
+  --font-nunito: var(--font-nunito);
+  --font-inter: var(--font-inter);
+}
+
+ .gradient-bg{
+  background: var(--gradient-primary);
+}
+
+
 /*  @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -128,3 +167,33 @@
     @apply font-sans;
   }
 } */
+
+.animated-gradient {
+  background: var(--gradient-primary);
+  background-size: 300% 300%;
+  animation: gradientMove 6s ease-in-out infinite;
+}
+
+
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  25% {
+    background-position: 100% 0%;
+  }
+
+  50% {
+    background-position: 100% 100%;
+  }
+
+  75% {
+    background-position: 0% 100%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}

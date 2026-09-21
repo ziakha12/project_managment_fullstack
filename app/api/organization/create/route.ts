@@ -3,14 +3,13 @@ import dbConnect from "@/config/dbConnect";
 import { NextResponse, NextRequest } from "next/server";
 import { getUserIdFromToken } from "@/helpers/getDataFromToken";
 import { uploadOnCloudinary } from "@/config/cloudinary";
+import { User } from "@/models/UserModel";
 
 
 export async function POST(request : NextRequest) {
     try {
-
         await dbConnect() 
         const formData = await request.formData()
-
         const owner = await getUserIdFromToken(request)
 
         if(!owner) return NextResponse.json({error : "your are unauthorize login again"},{status : 409})
@@ -37,6 +36,14 @@ export async function POST(request : NextRequest) {
                 workingDays,
                 owner
             })
+
+            if(organization){
+                await User.findByIdAndUpdate(owner,{
+                    $set : {
+                        organization : organization._id
+                    }
+                })
+            }
             
             return NextResponse.json({
                 message : "organization created successfully",
@@ -56,6 +63,14 @@ export async function POST(request : NextRequest) {
             workingDays,
             owner
         })
+
+        if(organization){
+            await User.findByIdAndUpdate(owner,{
+                $set : {
+                    organization : organization._id
+                }
+            })
+        }
         
         return NextResponse.json({
             message : "organization created successfully",
