@@ -13,7 +13,9 @@ export async function POST(request : NextRequest) {
 
         const {username, email, password} = await request.json()
 
-        if(!email || !password) return NextResponse.json({error : "all fields are required"}, {status : 401})
+        if(!username && !email ) return NextResponse.json({error : "username or email any one is required"}, {status : 401})
+
+        if(!password) return NextResponse.json({error : "all fields are required"}, {status : 401})
          
         const userExist = await User.findOne({$or : [{email}, {username}]})
 

@@ -18,7 +18,23 @@ const [isError, setIsError] = useState<boolean>(false)
   const onLogin = async (e: any) => {
     e.preventDefault();
     try {
+       const response = await fetch('/api/login',{
+        method : "POST",
+        body : JSON.stringify({
+          username,
+          password
+        })
+       })
 
+       const result = await response.json()
+
+       if(!result.success){
+        toast.error(result.error)
+       }
+
+       if(result.success){
+        toast.success(result.message)
+       }
     } catch (error) {
       setIsError(true)
       // @ts-ignore
@@ -34,15 +50,6 @@ const [isError, setIsError] = useState<boolean>(false)
         <p className='text-lg font-inter font-medium text-neutral-600 w-[80%]'>We empower developers and technical teams to create, simulate, and manage AI-driven workflows visually
         </p>
         <form className='my-3.5 lg:w-[80%] w-full flex flex-col gap-5' onSubmit={onLogin}>
-          <div className='flex flex-col gap-2'>
-            <label className='text-lg font-nunito text-neutral-900'>Email or Username</label>
-            <input type='text'
-             value={username}
-             onChange={(e)=> setUsername(e.target.value)}
-              className='py-2 px-4 rounded-lg text-neutral-800 ring ring-offset-1 ring-neutral-500/30 shadow-md shadow-neutral-600/40 focus:ring-primary/40  focus:ring-2 outline-0'
-              placeholder='ziakhan@gmail.com or ziakhan10'
-            />
-          </div>
           <div className='flex flex-col gap-2'>
             <label className='text-lg font-nunito text-neutral-900'>Email or Username</label>
             <input type='text'
