@@ -19,8 +19,7 @@
 
   /* Gradient */
   --gradient-primary: linear-gradient(
-    135deg,
-    #8b3dff 0%,
+    #8b3dff 10%,
     #5338d6 100%
   );
 }
